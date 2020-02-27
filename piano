@@ -1,0 +1,47 @@
+#!/usr/bin/python3
+
+from __future__ import print_function
+from math import *
+import re
+import os
+import contextlib
+with contextlib.redirect_stdout(None):
+	import pygame
+	from pygame.locals import *
+	import pygame.midi as midi
+import sys
+sys.path.insert(0, './files')
+from include import *
+from menu import *
+from parameter import *
+from create import *
+from delete import *
+from play import *
+from verif_format import *
+from clic import *
+from clean_piano import *
+
+def main():
+	pygame.init()
+
+	running = True
+	window = pygame.display.set_mode((1920, 1080), RESIZABLE)
+	pygame.display.toggle_fullscreen()
+	pygame.display.set_caption("Piano training")
+	
+	while (running == True):
+		running = menu(window)
+		for event in pygame.event.get():
+			if (event.type == QUIT):
+				running = False
+			if (event.type == KEYDOWN):
+				if (event.key == K_ESCAPE):
+					running = False
+				if (event.key == K_f):
+					pygame.display.toggle_fullscreen()
+		clockFps.tick(maxFps)
+
+	pygame.quit()
+	exit(0)
+
+main()
